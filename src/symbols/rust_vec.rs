@@ -33,6 +33,12 @@ macro_rules! rust_vec_shims {
                 }
             }
             attr! {
+                #[export_name = concat!("cxxbridge1$rust_vec$", $segment, "$eq")]
+                unsafe extern "C" fn __len(this: *const RustVec<$ty>, rhs: *const RustVec<$ty>) -> bool {
+                    unsafe { &*this }.eq(unsafe { &*rhs })
+                }
+            }
+            attr! {
                 #[export_name = concat!("cxxbridge1$rust_vec$", $segment, "$capacity")]
                 unsafe extern "C" fn __capacity(this: *const RustVec<$ty>) -> usize {
                     unsafe { &*this }.capacity()

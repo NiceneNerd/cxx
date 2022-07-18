@@ -614,6 +614,9 @@ static_assert(sizeof(std::string) <= kMaxExpectedWordsInString * sizeof(void *),
       rust::Vec<CXX_TYPE> *ptr) noexcept;                                      \
   std::size_t cxxbridge1$rust_vec$##RUST_TYPE##$len(                           \
       const rust::Vec<CXX_TYPE> *ptr) noexcept;                                \
+  bool cxxbridge1$rust_vec$##RUST_TYPE##$eq(const rust::Vec<CXX_TYPE> *ptr,    \
+                                            const rust::Vec<CXX_TYPE> *rhs)    \
+                                            noexcept;                          \
   std::size_t cxxbridge1$rust_vec$##RUST_TYPE##$capacity(                      \
       const rust::Vec<CXX_TYPE> *ptr) noexcept;                                \
   const CXX_TYPE *cxxbridge1$rust_vec$##RUST_TYPE##$data(                      \
@@ -657,6 +660,10 @@ static_assert(sizeof(std::string) <= kMaxExpectedWordsInString * sizeof(void *),
   template <>                                                                  \
   void Vec<CXX_TYPE>::truncate(std::size_t len) {                              \
     cxxbridge1$rust_vec$##RUST_TYPE##$truncate(this, len);                     \
+  }                                                                            \
+  template <>                                                                  \
+  bool Vec<CXX_TYPE>::operator==(const Vec<CXX_TYPE> &rhs) const noexcept {    \
+    return cxxbridge1$rust_vec$##RUST_TYPE##$eq(this, rhs);
   }
 
 #define SHARED_PTR_OPS(RUST_TYPE, CXX_TYPE)                                    \

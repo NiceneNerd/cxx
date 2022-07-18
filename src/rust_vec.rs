@@ -49,6 +49,10 @@ impl<T> RustVec<T> {
         self.as_vec().len()
     }
 
+    pub fn eq(&self, rhs: &Self) -> bool {
+        self.as_vec().eq(rhs.as_vec())
+    }
+
     pub fn capacity(&self) -> usize {
         self.as_vec().capacity()
     }

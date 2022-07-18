@@ -313,6 +313,8 @@ public:
   Vec &operator=(Vec &&) &noexcept;
   Vec &operator=(const Vec &) &;
 
+  bool operator==(const Vec &) const noexcept;
+
   std::size_t size() const noexcept;
   bool empty() const noexcept;
   const T *data() const noexcept;
